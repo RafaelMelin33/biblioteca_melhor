@@ -14,16 +14,16 @@
         <a href="{{url_for('livro')}}">Livros</a>
         <a href="{{url_for('novousuario')}}">Cadastrar usuário</a>
         <a href="{{url_for('abrirlogin')}}">Login</a>
-        {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-        <div class="flash-messages">
-            {% for category, message in messages %}
-            <div class="flash {{ category }}">{{ message }}</div>
-            {% endfor %}
-        </div>
-        {% endif %}
-        {% endwith %}
     </header>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flash-messages">
+        {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
     <main class="container">
         <h2>Lista de Livros</h2>
         <a href="{{url_for('novo')}}" class="botao-adicionar">Adicionar</a>
@@ -58,5 +58,6 @@
         </table>
     </main>
 </body>
+
 
 </html>
