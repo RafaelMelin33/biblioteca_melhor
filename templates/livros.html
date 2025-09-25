@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Livros</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <header>
+        <h1><a href="{{url_for('index')}}">Biblioteca</a></h1>
+        <a href="{{url_for('livro')}}">Livros</a>
+        <a href="{{url_for('novousuario')}}">Cadastrar usuário</a>
+        <a href="{{url_for('abrirlogin')}}">Login</a>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flash-messages">
+            {% for category, message in messages %}
+            <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+    </header>
+    <main class="container">
+        <h2>Lista de Livros</h2>
+        <a href="{{url_for('novo')}}" class="botao-adicionar">Adicionar</a>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Autor</th>
+                    <th>Ano de Publicação</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for livro in livros %}
+                <tr>
+                    <td>{{ livro[0] }}</td>
+                    <td>{{ livro[1] }}</td>
+                    <td>{{ livro[2] }}</td>
+                    <td>{{ livro[3] }}</td>
+                    <td class="botoes-tabela">
+                        <a href="{{url_for('editar',id=livro[0]) }}" class="botao-salvar"
+                            style="padding:6px 12px;">Editar</a>
+                        <form action="{{ url_for('deletar', id=livro[0]) }}" method="post" style="display:inline;">
+                            <button type="submit" class="botao-cancelar"
+                                style="padding:6px 12px; border:none;">Deletar</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
+</body>
+
+</html>
